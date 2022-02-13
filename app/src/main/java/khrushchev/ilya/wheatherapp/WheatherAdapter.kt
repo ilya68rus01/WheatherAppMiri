@@ -2,10 +2,11 @@ package khrushchev.ilya.wheatherapp
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import khrushchev.ilya.wheatherapp.models.ListWheatherModel
 
 class WheatherAdapter:RecyclerView.Adapter<ViewHolder>() {
 
-    val list: MutableList<String> = mutableListOf()
+    val list: MutableList<ListWheatherModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent)
@@ -19,7 +20,7 @@ class WheatherAdapter:RecyclerView.Adapter<ViewHolder>() {
         return list.size
     }
 
-    fun setLists(getList: List<String>){
+    fun setLists(getList: List<ListWheatherModel>){
         list.addAll(getList)
         notifyDataSetChanged()
     }

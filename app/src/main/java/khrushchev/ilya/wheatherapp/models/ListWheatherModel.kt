@@ -6,6 +6,6 @@ data class ListWheatherModel(
     @SerializedName("dt")
     val dt: Int,
     val visibility: Int,
-    val pop: Int,
+    val pop: Float,
     val dt_txt: String
 )

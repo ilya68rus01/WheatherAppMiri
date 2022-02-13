@@ -12,5 +12,5 @@ data class WheatherModel(
     @SerializedName("list")
     val list: List<ListWheatherModel>,
     @SerializedName("city")
-    val city: List<SityWheatherModel>
+    val city: SityWheatherModel
 )
