@@ -10,11 +10,11 @@ class MainActivity : AppCompatActivity() {
     var _binding: ActivityMainBinding? = null
     val binding get() = _binding ?: throw NullPointerException("Not initialized")
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
     }
 
     override fun onDestroy() {
