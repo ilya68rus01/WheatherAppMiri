@@ -13,12 +13,19 @@ class GeneralWheatherFragment : Fragment() {
     var _binding: FragmentGeneralWheatherBinding? = null
     val binding get() = _binding ?: throw NullPointerException("Not initialized")
 
+    val adapter: WheatherAdapter = WheatherAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGeneralWheatherBinding.inflate(layoutInflater)
+
+        binding.recycler.adapter = adapter
+
+
+
         return binding.root
     }
 
