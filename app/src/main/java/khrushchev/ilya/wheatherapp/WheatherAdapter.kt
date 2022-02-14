@@ -4,23 +4,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import khrushchev.ilya.wheatherapp.models.ListWheatherModel
 
-class WheatherAdapter:RecyclerView.Adapter<ViewHolder>() {
+class WheatherAdapter : RecyclerView.Adapter<DayliWeatherHolder>() {
 
     val list: MutableList<ListWheatherModel> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DayliWeatherHolder(parent)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DayliWeatherHolder, position: Int) {
         holder.populate(list[position])
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount() = list.size
 
-    fun setLists(getList: List<ListWheatherModel>){
+    fun setLists(getList: List<ListWheatherModel>) {
         list.addAll(getList)
         notifyDataSetChanged()
     }

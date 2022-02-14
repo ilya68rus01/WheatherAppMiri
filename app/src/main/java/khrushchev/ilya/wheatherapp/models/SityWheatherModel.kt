@@ -7,6 +7,8 @@ data class SityWheatherModel(
     val valid: Int,
     @SerializedName("name")
     val name: String,
+    @SerializedName("coord")
+    val coord: Coordination,
     @SerializedName("country")
     val country: String,
     @SerializedName("population")

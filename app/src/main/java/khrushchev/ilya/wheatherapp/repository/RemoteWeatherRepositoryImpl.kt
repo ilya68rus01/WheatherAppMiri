@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RepositoryResponse : FunResponse {
+class RemoteWeatherRepositoryImpl : RemoteWeatherRepository {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.openweathermap.org/data/2.5/")
@@ -18,9 +18,9 @@ class RepositoryResponse : FunResponse {
 
     private val api: WheatherService = retrofit.create(WheatherService::class.java)
 
-    override fun apiModel(callback: (WheatherModel) -> Unit) {
+    override fun requestWeather(callback: (WheatherModel) -> Unit) {
 
-        val repositoryCallback = object : Callback<WheatherModel> {
+        val responseCallback = object : Callback<WheatherModel> {
             override fun onResponse(call: Call<WheatherModel>, response: Response<WheatherModel>) {
                 response.body()?.let { callback(it) }
             }
@@ -30,7 +30,7 @@ class RepositoryResponse : FunResponse {
             }
         }
 
-        api.getApi().enqueue(repositoryCallback)
+        api.getApi().enqueue(responseCallback)
     }
 
 }
