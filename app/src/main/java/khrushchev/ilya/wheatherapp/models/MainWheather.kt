@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class MainWheather(
     @SerializedName("temp")
-    val temp: Int,
+    val temp: Float,
     @SerializedName("feels_like")
     val feelsLike: Float,
-    @SerializedName("tem")
+    @SerializedName("temp_min")
     val temp_min: Float,
     @SerializedName("temp_max")
-    val temp_max: Int,
+    val temp_max: Float,
     @SerializedName("pressure")
     val pressure: Int,
     @SerializedName("sea_level")
