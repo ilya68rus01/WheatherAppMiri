@@ -9,7 +9,7 @@ fun List<ListWheatherModel>.mapToDisplayableModel() =
         val description = it.weather.first().description
         val wind = it.wind.speed
         val pressure = it.mainWeather.pressure
-        val temp = it.mainWeather.temp -17.78f
+        val temp = (it.mainWeather.temp - 273f).toInt()
         val icon = it.weather.first().icon
         DailyWeatherModel(date, description, wind, pressure, temp, icon)
     }

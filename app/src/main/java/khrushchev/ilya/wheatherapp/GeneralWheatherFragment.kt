@@ -20,7 +20,7 @@ class GeneralWheatherFragment : Fragment() {
     private var adapter: WheatherAdapter = WheatherAdapter()
 
     private fun repositoryCallback(wheather: WheatherModel) {
-        adapter.setLists(wheather.list)
+        adapter.setLists(wheather.list.mapToDisplayableModel())
     }
 
     override fun onCreateView(

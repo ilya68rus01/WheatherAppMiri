@@ -5,6 +5,6 @@ data class DailyWeatherModel(
     val description: String,
     val wind: Float,
     val pressure: Int,
-    val temp: Float,
+    val temp: Int,
     val icon: String
 )
