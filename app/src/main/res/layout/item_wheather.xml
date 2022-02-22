@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="160dp"
     android:layout_margin="5dp"
-    android:padding="10dp"
+    android:padding="15dp"
     android:background="@drawable/rounded_corner">
 
     <TextView
@@ -17,6 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        android:textSize="18sp"
         tools:text="@tools:sample/lorem"
         app:layout_constraintHorizontal_bias="0"/>
 
@@ -39,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:text="@string/veter"
         app:layout_constraintBottom_toTopOf="@id/pressure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,26 +59,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wind"
         tools:text="@tools:sample/lorem"
+        android:text="@string/pox"
         app:layout_constraintHorizontal_bias="0"/>
 
     <TextView
         android:id="@+id/temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#062377"
-        android:textSize="20sp"
+        android:textColor="#0534B5"
+        android:textSize="40sp"
         app:layout_constraintTop_toBottomOf="@id/wind"
         app:layout_constraintStart_toEndOf="@id/pressure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="@tools:sample/lorem"
+        tools:text="1"
         app:layout_constraintHorizontal_bias="1"
+        android:text="@string/gradus"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         />
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
         app:layout_constraintTop_toBottomOf="@id/date"
         app:layout_constraintBottom_toTopOf="@id/wind"
         app:layout_constraintStart_toEndOf="@id/description"
@@ -82,6 +90,7 @@
         android:scaleType="centerCrop"
         tools:src="@tools:sample/backgrounds/scenic"
         app:layout_constraintHorizontal_bias="1"
+        android:layout_marginBottom="30dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
