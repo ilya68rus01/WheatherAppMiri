@@ -3,6 +3,7 @@ package khrushchev.ilya.wheatherapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import khrushchev.ilya.wheatherapp.databinding.ItemWheatherBinding
@@ -16,10 +17,10 @@ class DayliWeatherHolder(private val binding: ItemWheatherBinding) :
         ItemWheatherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    fun populate(item: DailyWeatherModel) {
+    fun populate(item: DailyWeatherModel, callback: (DailyWeatherModel) -> Unit) {
 
-        val sdft = SimpleDateFormat("dd.MM.yyyy EEEE", Locale("ru"))
-        binding.date.text = sdft.format(item.date)
+        val sdf = SimpleDateFormat("dd.MM.yyyy EEEE", Locale("ru"))
+        binding.date.text = sdf.format(item.date)
         binding.description.text = item.description
         binding.wind.text = binding.root.context.getString(R.string.veter, item.wind)
         binding.pressure.text = binding.root.context.getString(R.string.pox, item.pressure)
@@ -27,6 +28,13 @@ class DayliWeatherHolder(private val binding: ItemWheatherBinding) :
         Picasso.get()
             .load("https://openweathermap.org/img/wn/" + item.icon + "@2x.png")
             .into(binding.img)
+
+        binding.root.setOnClickListener {
+            callback(item)
+        }
+
     }
+
+
 
 }
