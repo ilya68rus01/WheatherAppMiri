@@ -2,10 +2,9 @@ package khrushchev.ilya.wheatherapp
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import khrushchev.ilya.wheatherapp.models.DailyWeatherModel
 import khrushchev.ilya.wheatherapp.models.TimeWeatherModel
 
-class SecondWeatherAdapter: RecyclerView.Adapter<SecondWeatherHolder>() {
+class SecondWeatherAdapter(): RecyclerView.Adapter<SecondWeatherHolder>() {
 
     val secondList: MutableList<TimeWeatherModel> = mutableListOf()
 

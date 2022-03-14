@@ -9,16 +9,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import khrushchev.ilya.wheatherapp.databinding.FragmentGeneralWheatherBinding
-import khrushchev.ilya.wheatherapp.models.DailyWeatherModel
-import khrushchev.ilya.wheatherapp.models.WheatherModel
+import khrushchev.ilya.wheatherapp.models.*
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
 import java.lang.NullPointerException
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 class GeneralWheatherFragment : Fragment() {
-
-    val frag2 = SecondWheatherFragment()
 
     private var _binding: FragmentGeneralWheatherBinding? = null
     private val binding get() = _binding ?: throw NullPointerException("Not initialized")
@@ -26,15 +24,33 @@ class GeneralWheatherFragment : Fragment() {
     private var repository: RemoteWeatherRepository = RemoteWeatherRepositoryImpl()
     private var adapter: WheatherAdapter = WheatherAdapter(this::adapterCallback)
 
+    private val models = mutableListOf<ListWheatherModel>()
+
     private fun repositoryCallback(wheather: WheatherModel) {
+        models.addAll(wheather.list)
         adapter.setLists(wheather.list.mapToDisplayableModel())
     }
 
     private fun adapterCallback(callback: DailyWeatherModel) {
+
+        val hourWheatherModel = models.filter {
+            val sdft = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val date = sdft.parse(it.dt_txt)
+
+            val sdf = SimpleDateFormat("dd", Locale.getDefault())
+            val day = sdf.format(date)
+
+            val clickedDay = sdf.format(callback.date)
+
+            day == clickedDay
+        }.mapToModel()
+
         parentFragmentManager.beginTransaction()
-            .add(R.id.fragment_Cont, frag2)
+            .add(R.id.fragment_Cont, SecondWheatherFragment())
             .addToBackStack(null)
             .commit()
+
+        setFragmentResult("key1", bundleOf("extra_key1" to hourWheatherModel))
     }
 
     override fun onCreateView(

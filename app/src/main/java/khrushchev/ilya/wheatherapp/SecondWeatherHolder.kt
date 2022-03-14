@@ -1,11 +1,13 @@
 package khrushchev.ilya.wheatherapp
 
 import android.view.LayoutInflater
+import android.view.ScrollCaptureCallback
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import khrushchev.ilya.wheatherapp.databinding.Item2WeatherBinding
 import khrushchev.ilya.wheatherapp.models.DailyWeatherModel
+import khrushchev.ilya.wheatherapp.models.ListWheatherModel
 import khrushchev.ilya.wheatherapp.models.TimeWeatherModel
 import java.text.SimpleDateFormat
 import java.util.*
