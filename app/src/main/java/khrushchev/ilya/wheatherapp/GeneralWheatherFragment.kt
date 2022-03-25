@@ -10,10 +10,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import khrushchev.ilya.wheatherapp.databinding.FragmentGeneralWheatherBinding
 import khrushchev.ilya.wheatherapp.models.*
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
+import kotlinx.coroutines.flow.collect
 import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,11 +47,14 @@ class GeneralWheatherFragment : Fragment() {
         viewModel.dailyWeatherModels.observe(viewLifecycleOwner) {
             adapter.setLists(it)
         }
-        viewModel.hourWheatherModel.observe(viewLifecycleOwner) {
-            parentFragmentManager.beginTransaction()
-                .add(R.id.fragment_Cont, SecondWheatherFragment.newInstance(it))
-                .addToBackStack(null)
-                .commit()
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.hourWheatherModel.collect {
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.fragment_Cont, SecondWheatherFragment.newInstance(it))
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
 

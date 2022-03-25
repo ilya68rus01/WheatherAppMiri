@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import khrushchev.ilya.wheatherapp.models.*
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,8 +20,8 @@ class GeneralViewModel : ViewModel() {
     private var _dailyWeatherModels = MutableLiveData<List<DailyWeatherModel>>()
     val dailyWeatherModels: LiveData<List<DailyWeatherModel>> get() =  _dailyWeatherModels
 
-    private var _hourWheatherModel = MutableLiveData< List<TimeWeatherModel>>()
-    val hourWheatherModel: LiveData< List<TimeWeatherModel>> get() =  _hourWheatherModel
+    private var _hourWheatherModel = MutableSharedFlow<List<TimeWeatherModel>>(0,1,BufferOverflow.DROP_OLDEST)
+    val hourWheatherModel get() =  _hourWheatherModel.asSharedFlow()
 
     init {
         repository.requestWeather(this::repositoryCallback)
@@ -42,6 +45,6 @@ class GeneralViewModel : ViewModel() {
             day == clickedDay
         }.mapToModel()
 
-        _hourWheatherModel.postValue(hourWheatherModel)
+        _hourWheatherModel.tryEmit(hourWheatherModel)
     }
 }
