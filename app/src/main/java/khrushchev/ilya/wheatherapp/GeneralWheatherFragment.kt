@@ -46,11 +46,10 @@ class GeneralWheatherFragment : Fragment() {
         }.mapToModel()
 
         parentFragmentManager.beginTransaction()
-            .add(R.id.fragment_Cont, SecondWheatherFragment())
+            .add(R.id.fragment_Cont, SecondWheatherFragment.newInstance(hourWheatherModel))
             .addToBackStack(null)
             .commit()
 
-        setFragmentResult("key1", bundleOf("extra_key1" to hourWheatherModel))
     }
 
     override fun onCreateView(
@@ -73,4 +72,7 @@ class GeneralWheatherFragment : Fragment() {
         _binding = null
     }
 
+    companion object {
+        const val KEY_FOR_DATA = "key1"
+    }
 }
