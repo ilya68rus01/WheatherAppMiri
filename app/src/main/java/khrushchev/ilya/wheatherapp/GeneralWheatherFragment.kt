@@ -1,5 +1,6 @@
 package khrushchev.ilya.wheatherapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.ViewModelProvider
 import khrushchev.ilya.wheatherapp.databinding.FragmentGeneralWheatherBinding
 import khrushchev.ilya.wheatherapp.models.*
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
@@ -21,36 +23,9 @@ class GeneralWheatherFragment : Fragment() {
     private var _binding: FragmentGeneralWheatherBinding? = null
     private val binding get() = _binding ?: throw NullPointerException("Not initialized")
 
-    private var repository: RemoteWeatherRepository = RemoteWeatherRepositoryImpl()
-    private var adapter: WheatherAdapter = WheatherAdapter(this::adapterCallback)
+    private lateinit var viewModel: GeneralViewModel
 
-    private val models = mutableListOf<ListWheatherModel>()
-
-    private fun repositoryCallback(wheather: WheatherModel) {
-        models.addAll(wheather.list)
-        adapter.setLists(wheather.list.mapToDisplayableModel())
-    }
-
-    private fun adapterCallback(callback: DailyWeatherModel) {
-
-        val hourWheatherModel = models.filter {
-            val sdft = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val date = sdft.parse(it.dt_txt)
-
-            val sdf = SimpleDateFormat("dd", Locale.getDefault())
-            val day = sdf.format(date)
-
-            val clickedDay = sdf.format(callback.date)
-
-            day == clickedDay
-        }.mapToModel()
-
-        parentFragmentManager.beginTransaction()
-            .add(R.id.fragment_Cont, SecondWheatherFragment.newInstance(hourWheatherModel))
-            .addToBackStack(null)
-            .commit()
-
-    }
+    private lateinit var adapter: WheatherAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,10 +36,26 @@ class GeneralWheatherFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(GeneralViewModel::class.java)
+        adapter = WheatherAdapter(viewModel::adapterCallback)
+
+        viewModel.dailyWeatherModels.observe(viewLifecycleOwner) {
+            adapter.setLists(it)
+        }
+        viewModel.hourWheatherModel.observe(viewLifecycleOwner) {
+            parentFragmentManager.beginTransaction()
+                .add(R.id.fragment_Cont, SecondWheatherFragment.newInstance(it))
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         binding.recycler.adapter = adapter
-        repository.requestWeather(this::repositoryCallback)
     }
 
     override fun onDestroyView() {
