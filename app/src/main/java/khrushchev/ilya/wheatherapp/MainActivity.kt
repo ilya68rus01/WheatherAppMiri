@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun getComponent() = (application as App).appComponent
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

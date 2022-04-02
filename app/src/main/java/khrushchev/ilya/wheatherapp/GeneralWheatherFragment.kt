@@ -12,22 +12,29 @@ import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import khrushchev.ilya.wheatherapp.databinding.FragmentGeneralWheatherBinding
-import khrushchev.ilya.wheatherapp.models.*
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
+import khrushchev.ilya.wheatherapp.di.components.AppComponent.Builder.Companion.build
+import khrushchev.ilya.wheatherapp.di.modules.ViewModelProviderFactory
 import kotlinx.coroutines.flow.collect
 import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class GeneralWheatherFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProviderFactory
+    lateinit var viewModel: GeneralViewModel
 
     private var _binding: FragmentGeneralWheatherBinding? = null
     private val binding get() = _binding ?: throw NullPointerException("Not initialized")
 
-    private lateinit var viewModel: GeneralViewModel
-
     private lateinit var adapter: WheatherAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity() as MainActivity).getComponent().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +48,8 @@ class GeneralWheatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GeneralViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(GeneralViewModel::class.java)
         adapter = WheatherAdapter(viewModel::adapterCallback)
 
         viewModel.dailyWeatherModels.observe(viewLifecycleOwner) {

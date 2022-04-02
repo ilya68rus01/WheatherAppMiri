@@ -11,10 +11,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class GeneralViewModel : ViewModel() {
+class GeneralViewModel @Inject constructor(
+    private val repository: RemoteWeatherRepository
+) : ViewModel() {
 
-    private var repository: RemoteWeatherRepository = RemoteWeatherRepositoryImpl()
     private val models = mutableListOf<ListWheatherModel>()
 
     private var _dailyWeatherModels = MutableLiveData<List<DailyWeatherModel>>()
