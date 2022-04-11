@@ -1,4 +1,4 @@
-package khrushchev.ilya.wheatherapp
+package khrushchev.ilya.wheatherapp.generalview
 
 import android.content.Context
 import android.os.Bundle
@@ -6,18 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import khrushchev.ilya.wheatherapp.*
 import khrushchev.ilya.wheatherapp.databinding.FragmentGeneralWheatherBinding
-import khrushchev.ilya.wheatherapp.di.components.AppComponent.Builder.Companion.build
 import khrushchev.ilya.wheatherapp.di.modules.ViewModelProviderFactory
 import kotlinx.coroutines.flow.collect
 import java.lang.NullPointerException
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class GeneralWheatherFragment : Fragment() {
@@ -45,11 +40,12 @@ class GeneralWheatherFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(GeneralViewModel::class.java)
+
         adapter = WheatherAdapter(viewModel::adapterCallback)
 
         viewModel.dailyWeatherModels.observe(viewLifecycleOwner) {

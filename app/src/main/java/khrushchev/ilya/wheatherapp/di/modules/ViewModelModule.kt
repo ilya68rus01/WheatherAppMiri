@@ -3,7 +3,7 @@ package khrushchev.ilya.wheatherapp.di.modules
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import khrushchev.ilya.wheatherapp.GeneralViewModel
+import khrushchev.ilya.wheatherapp.generalview.GeneralViewModel
 import khrushchev.ilya.wheatherapp.di.ViewModelKey
 import androidx.lifecycle.ViewModel
 

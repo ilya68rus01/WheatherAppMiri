@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResultListener
 import khrushchev.ilya.wheatherapp.databinding.FragmentSecondWheatherBinding
+import khrushchev.ilya.wheatherapp.generalview.GeneralWheatherFragment
 import khrushchev.ilya.wheatherapp.models.*
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
 import java.lang.NullPointerException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class SecondWheatherFragment : Fragment() {
@@ -29,7 +26,6 @@ class SecondWheatherFragment : Fragment() {
                 arguments = bundleOf(GeneralWheatherFragment.KEY_FOR_DATA to hourWheatherModel)
             }
         }
-
     }
 
     override fun onCreateView(

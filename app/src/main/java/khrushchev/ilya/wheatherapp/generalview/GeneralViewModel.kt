@@ -1,11 +1,11 @@
-package khrushchev.ilya.wheatherapp
+package khrushchev.ilya.wheatherapp.generalview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import khrushchev.ilya.wheatherapp.mapToDisplayableModel
 import khrushchev.ilya.wheatherapp.models.*
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

@@ -2,7 +2,7 @@ package khrushchev.ilya.wheatherapp.di.modules
 
 import dagger.Module
 import dagger.Provides
-import khrushchev.ilya.wheatherapp.WheatherService
+import khrushchev.ilya.wheatherapp.repository.WheatherService
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
 import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
 import retrofit2.Retrofit

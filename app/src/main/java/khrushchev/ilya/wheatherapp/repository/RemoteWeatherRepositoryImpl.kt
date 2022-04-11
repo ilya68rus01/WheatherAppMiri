@@ -1,13 +1,10 @@
 package khrushchev.ilya.wheatherapp.repository
 
 import android.util.Log
-import khrushchev.ilya.wheatherapp.WheatherService
 import khrushchev.ilya.wheatherapp.models.WheatherModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RemoteWeatherRepositoryImpl(
     private val api: WheatherService
