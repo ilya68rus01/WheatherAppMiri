@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.setFragmentResultListener
+import androidx.core.os.bundleOf
 import khrushchev.ilya.wheatherapp.databinding.FragmentSecondWheatherBinding
+import khrushchev.ilya.wheatherapp.generalview.GeneralWheatherFragment
 import khrushchev.ilya.wheatherapp.models.*
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepository
-import khrushchev.ilya.wheatherapp.repository.RemoteWeatherRepositoryImpl
 import java.lang.NullPointerException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class SecondWheatherFragment : Fragment() {
@@ -20,6 +18,15 @@ class SecondWheatherFragment : Fragment() {
     val binding get() = _binding ?: throw NullPointerException("Not initialized")
 
     val adapter: SecondWeatherAdapter = SecondWeatherAdapter()
+
+    companion object {
+
+        fun newInstance(hourWheatherModel: List<TimeWeatherModel>): SecondWheatherFragment {
+            return SecondWheatherFragment().apply {
+                arguments = bundleOf(GeneralWheatherFragment.KEY_FOR_DATA to hourWheatherModel)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,14 +39,12 @@ class SecondWheatherFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
+        val dataForScreen =
+            arguments?.getParcelableArrayList<TimeWeatherModel>(GeneralWheatherFragment.KEY_FOR_DATA)
+                ?.toList() ?: emptyList()
         binding.recycler2.adapter = adapter
-        setFragmentResultListener("key1") { key, result ->
-            val model = result.getParcelableArrayList<TimeWeatherModel>("extra_key1")
-            if (model != null) {
-                adapter.setSecondLists(model.toList())
-            }
-        }
+        adapter.setSecondLists(dataForScreen)
+
     }
 
     override fun onDestroyView() {

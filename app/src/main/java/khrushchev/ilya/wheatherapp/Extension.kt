@@ -2,6 +2,7 @@ package khrushchev.ilya.wheatherapp
 
 import khrushchev.ilya.wheatherapp.models.DailyWeatherModel
 import khrushchev.ilya.wheatherapp.models.ListWheatherModel
+import khrushchev.ilya.wheatherapp.models.mapToModel
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -20,7 +21,8 @@ fun List<ListWheatherModel>.mapToDisplayableModel():List<DailyWeatherModel>{
         val pressure = it.mainWeather.pressure
         val temp = (it.mainWeather.temp - 273f).toInt()
         val icon = it.weather.first().icon
-        DailyWeatherModel(date, description, wind, pressure, temp, icon)
+        val weatherLists = this.mapToModel()
+        DailyWeatherModel(date, description, wind, pressure, temp, icon, weatherLists)
     }
         .filterIndexed { index, dailyWeatherModel ->
             if (index==0){
