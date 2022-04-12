@@ -35,18 +35,7 @@ class GeneralViewModel @Inject constructor(
     }
 
     fun adapterCallback(callback: DailyWeatherModel) {
-        val hourWheatherModel = models.filter {
-            val sdft = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val date = sdft.parse(it.dt_txt)
-
-            val sdf = SimpleDateFormat("dd", Locale.getDefault())
-            val day = sdf.format(date)
-
-            val clickedDay = sdf.format(callback.date)
-
-            day == clickedDay
-        }.mapToModel()
-
+        val hourWheatherModel = models.mapToModel(callback.date)
         _hourWheatherModel.tryEmit(hourWheatherModel)
     }
 }
