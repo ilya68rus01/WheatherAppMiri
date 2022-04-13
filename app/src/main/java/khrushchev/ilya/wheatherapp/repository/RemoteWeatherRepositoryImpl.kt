@@ -1,22 +1,14 @@
 package khrushchev.ilya.wheatherapp.repository
 
 import android.util.Log
-import khrushchev.ilya.wheatherapp.WheatherService
 import khrushchev.ilya.wheatherapp.models.WheatherModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class RemoteWeatherRepositoryImpl : RemoteWeatherRepository {
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.openweathermap.org/data/2.5/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val api: WheatherService = retrofit.create(WheatherService::class.java)
+class RemoteWeatherRepositoryImpl(
+    private val api: WheatherService
+) : RemoteWeatherRepository {
 
     override fun requestWeather(callback: (WheatherModel) -> Unit) {
 

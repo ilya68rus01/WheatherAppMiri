@@ -1,4 +1,4 @@
-package khrushchev.ilya.wheatherapp
+package khrushchev.ilya.wheatherapp.repository
 
 import khrushchev.ilya.wheatherapp.models.WheatherModel
 import retrofit2.Call

@@ -8,5 +8,6 @@ data class DailyWeatherModel(
     val wind: Int,
     val pressure: Int,
     val temp: Int,
-    val icon: String
+    val icon: String,
+    val weatherLists: List<TimeWeatherModel>
 )
