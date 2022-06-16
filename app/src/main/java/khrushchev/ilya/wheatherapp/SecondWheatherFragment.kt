@@ -12,10 +12,7 @@ import khrushchev.ilya.wheatherapp.models.*
 import java.lang.NullPointerException
 import java.util.*
 
-class SecondWheatherFragment : Fragment() {
-
-    var _binding: FragmentSecondWheatherBinding? = null
-    val binding get() = _binding ?: throw NullPointerException("Not initialized")
+class SecondWheatherFragment : BaseBindingFragment<FragmentSecondWheatherBinding>(FragmentSecondWheatherBinding::inflate) {
 
     val adapter: SecondWeatherAdapter = SecondWeatherAdapter()
 
@@ -28,15 +25,6 @@ class SecondWheatherFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSecondWheatherBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onStart() {
         super.onStart()
         val dataForScreen =
@@ -45,11 +33,6 @@ class SecondWheatherFragment : Fragment() {
         binding.recycler2.adapter = adapter
         adapter.setSecondLists(dataForScreen)
 
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }
