@@ -3,5 +3,5 @@ package khrushchev.ilya.wheatherapp.repository
 import khrushchev.ilya.wheatherapp.models.WheatherModel
 
 interface RemoteWeatherRepository {
-    fun requestWeather(callback: (WheatherModel)->Unit)
+    fun requestWeather(lat: Double, lon: Double, callback: (WheatherModel)->Unit)
 }

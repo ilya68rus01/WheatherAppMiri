@@ -1,5 +1,6 @@
 package khrushchev.ilya.wheatherapp.generalview
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,10 +26,6 @@ class GeneralViewModel @Inject constructor(
     private var _hourWheatherModel = MutableSharedFlow<List<TimeWeatherModel>>(0,1,BufferOverflow.DROP_OLDEST)
     val hourWheatherModel get() =  _hourWheatherModel.asSharedFlow()
 
-    init {
-        repository.requestWeather(this::repositoryCallback)
-    }
-
     private fun repositoryCallback(wheather: WheatherModel) {
         models.addAll(wheather.list)
         _dailyWeatherModels.postValue(wheather.list.mapToDisplayableModel())
@@ -37,5 +34,11 @@ class GeneralViewModel @Inject constructor(
     fun adapterCallback(callback: DailyWeatherModel) {
         val hourWheatherModel = models.mapToModel(callback.date)
         _hourWheatherModel.tryEmit(hourWheatherModel)
+    }
+
+    fun getWeather(location: Location?) {
+        location?.let {
+            repository.requestWeather(it.latitude, it.longitude, this::repositoryCallback)
+        }
     }
 }

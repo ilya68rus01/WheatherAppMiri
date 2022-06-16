@@ -10,7 +10,7 @@ class RemoteWeatherRepositoryImpl(
     private val api: WheatherService
 ) : RemoteWeatherRepository {
 
-    override fun requestWeather(callback: (WheatherModel) -> Unit) {
+    override fun requestWeather(lat: Double, lon: Double, callback: (WheatherModel) -> Unit) {
 
         val responseCallback = object : Callback<WheatherModel> {
             override fun onResponse(call: Call<WheatherModel>, response: Response<WheatherModel>) {
@@ -22,7 +22,7 @@ class RemoteWeatherRepositoryImpl(
             }
         }
 
-        api.getApi().enqueue(responseCallback)
+        api.getApi(lat, lon).enqueue(responseCallback)
     }
 
 }
